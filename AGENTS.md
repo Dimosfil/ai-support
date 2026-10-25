@@ -6,9 +6,12 @@ specific project-local instructions, contracts, memory, and runbooks.
 ## Project
 
 `ai-support` — переносимая основа поддержки пользователей и очереди операторов.
-Сначала сайт, затем Telegram с общей историей обращений. Реализация не начата.
-Продуктовый контекст: `SUPPORT_SYSTEM_PLAN.md`. Стек, БД, хостинг и форма
-поставки пока не выбраны.
+Сначала сайт, затем Telegram с общей историей обращений. Реализована локальная
+основа G0/G1 и механизм G2.2: Node.js 24, SQLite, встраиваемое ядро,
+HTTP/web-адаптер и optional delivery worker. Новая схема v2; v1 без автоматической
+миграции. Доставка и входные адаптеры: `docs/NOTIFICATIONS.md`.
+Продуктовый контекст: `SUPPORT_SYSTEM_PLAN.md`; контракт: `docs/CORE_CONTRACT.md`.
+Production-хостинг и интеграция реального продукта пока не выбраны.
 
 ## Goal And Loading Contract
 
@@ -34,6 +37,17 @@ specific project-local instructions, contracts, memory, and runbooks.
   authorized work.
 - Before adding a clarification or approval gate, apply
   `patterns/AGENTS_RUNTIME/03-rule-precedence.md` and existing authorization.
+- Before work, load module 03; before completion, load module 15.
+- Final: load `patterns/AGENTS_RUNTIME/15-final-review.md`.
+- Record verified instruction installation separately from host activation;
+  follow `patterns/AGENTS_RUNTIME/07-startup.md`. Missing host trust/live tests
+  remain explicit runtime gaps.
+<!--gi-->
+- Verify the full task, report gaps, and agree material complexity first.
+- Active GI hooks in Codex or OpenCode load rules and require final review automatically.
+  Otherwise run `tools/get-gi-context.ps1` before work and `-Phase Complete`
+  before final. Apply its rules; load failure blocks completion.
+<!--/gi-->
 - State-changing GI commands must not run from memory. If the context builder,
   route manifest, resolver, or a mandatory routed file is missing, stop that
   operation and name the missing path.
@@ -102,8 +116,9 @@ files are compatibility indexes only and contain no operational rules.
 
 ## Project Memory And Working Areas
 
-- Исходный код, тесты и каталоги сборки пока отсутствуют. Определить их при
-  согласовании реализации; текущий план: `SUPPORT_SYSTEM_PLAN.md`.
+- Исходный код: `src/`; тесты: `tests/`; product scripts: `scripts/`.
+  Локальные credentials/config: `.local/`; БД: `data/`; оба каталога ignored.
+  Компиляции/сборки пока нет. Текущий план: `SUPPORT_SYSTEM_PLAN.md`.
 - Summaries: `tools/summary/`; durable project knowledge:
   `tools/project-memory/`; reusable tooling: `tools/`.
 - Put product behavior, business rules, workflow contracts, architecture
@@ -116,7 +131,8 @@ files are compatibility indexes only and contain no operational rules.
 ## Local Commands
 
 Команды GI и текущие ограничения описаны в `tools/AGENT_RUNBOOK.md`.
-Команды установки, запуска, тестирования и сборки приложения пока не определены.
+Запуск и проверки: `docs/LOCAL_RUN.md`, скрипты в `package.json`.
+UI визуально проверяет пользователь, если отдельно не запрошена проверка агентом.
 
 ## Windows Command Policy
 

@@ -1,0 +1,10 @@
+{
+  "host": "127.0.0.1",
+  "port": 4317,
+  "dataDirectory": "./data",
+  "identitiesFile": "./.local/identities.json",
+  "requestBytes": 65536,
+  "requestsPerMinute": 180,
+  "policy": { "subjectLength": 200, "messageLength": 10000, "writesPerMinute": 20 },
+  "delivery": { "enabled": false, "adapterModule": "./.local/delivery-adapters.mjs" }
+}

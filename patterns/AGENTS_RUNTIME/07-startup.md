@@ -48,6 +48,26 @@
   concrete configuration blocker. Distinguish policy, execution, and blockers:
   say "updates not applied: <verified reason>" if execution did not complete;
   never invent a user opt-out or report an unchecked pending count as zero.
+- Separate migration installation from host activation. Read the accepted
+  `migrations/README.md` applicability contract with pending migrations; it
+  governs historical Verify And Record wording. Merge the ordered batch before
+  recording, including later host adapters. Verify installed files, local merges,
+  and applicable installation checks, then record the batch with `-RecordApplied`
+  and recheck the pending count. Missing/conflicting files or failed installation
+  checks block recording; unavailable host activation does not.
+- Report configured, active/trusted, and live-tested status separately for each
+  host. Codex `/hooks`, `hooks/list`, trust, CLI omission and Desktop service
+  tests apply only to Codex; OpenCode plugin loading and response-loop checks
+  apply only to OpenCode. An unavailable host/reload/trust/live test leaves that
+  runtime unverified, not the installed migration pending. Never infer runtime
+  readiness from a checkpoint or zero pending count. Source-library regressions
+  belong to library maintenance, not every consuming project's startup. If the
+  task explicitly requires activation or live verification, keep that requirement
+  unfinished until verified; use the manual fallback meanwhile.
+- For Unity projects, follow `20-unity-projects.md` automatic host setup after
+  initialization/updates and once on the first task of a session, even when
+  accepted versions match. This is separate from the zero-pending update check;
+  reuse bootstrap/context-builder setup evidence instead of running it twice.
 - Before implementation, derive the task goal and observable success criteria
   from the user's request and relevant project context. A clear bounded fix,
   review, or instruction edit is sufficient without a project-goal interview.

@@ -1,47 +1,29 @@
 # Technology Stack
 
-Last reviewed: TODO
+Проверено: 25.10.2026. Источники: package.json, package-lock.json, src/, tests/.
 
-Canonical source: this file
-Linked from: TODO
-
-This is project documentation. Keep business rules, feature algorithms, workflow
-contracts, state machines, and verification guarantees in project memory; keep
-stack facts, commands, runtime assumptions, and operational notes here.
-
-## Summary
-
-- Primary stack: TODO
-- Runtime model: TODO
-- Current confidence: needs review
-
-## Components
-
-| Layer | Technology | Evidence | Notes |
-| --- | --- | --- | --- |
-| Language/runtime | TODO | TODO | TODO |
-| Frontend | TODO | TODO | TODO |
-| Backend/API | TODO | TODO | TODO |
-| Data/storage | TODO | TODO | TODO |
-| Build/package | TODO | TODO | TODO |
-| Test/quality | TODO | TODO | TODO |
-| Deployment/runtime | TODO | TODO | TODO |
-
-## Commands
-
-| Purpose | Command | Evidence |
+| Слой | Реализация | Контракт |
 | --- | --- | --- |
-| Install | TODO | TODO |
-| Run | TODO | TODO |
-| Test | TODO | TODO |
-| Build | TODO | TODO |
+| Runtime | Node.js 24.14.1; engines >=24.14.1 <25 | ESM, без компиляции |
+| Domain/application | JavaScript ESM | src/core/, публичные exports в src/index.mjs |
+| Storage | SQLite 3.51.2 через node:sqlite | SqliteStore; FK, WAL, synchronous FULL; новая schema v2, v1 без auto-migration |
+| Delivery | NotificationDispatcher / SQLite leases и attempts | Telegram/product HTTP transports через встроенный fetch; host directory/revalidation; выключено по умолчанию |
+| Inbound adapters | createSupportIngress | Product identity и аутентифицированные Telegram updates; одна история и durable update receipts |
+| Transport | node:http | HTTP API /api/v1; injectable authenticate |
+| Web | HTML/CSS, browser ES modules | Те же API и серверные права; sessionStorage для черновиков |
+| Identity | Локальные случайные bearer keys, SHA-256 hashes | Только loopback; product host заменяет адаптер |
+| Tests | node:test + node:assert | Реальные SQLite/HTTP, синтетические identity |
+| Dependencies | Нет внешних npm-пакетов | package-lock.json |
 
-## External Services
+Команды: npm.cmd run dev:setup; npm.cmd start; npm.cmd test;
+offline migration: npm.cmd run delivery:migrate -- <database> <new-backup-file>.
+Настройки: config/support.example.json → ignored .local/runtime.json,
+SUPPORT_CONFIG выбирает другой файл; config-service отключён.
+Data: выделенный ignored data/; private credentials/config: ignored .local/.
 
-| Service | Role | Evidence | Boundary |
-| --- | --- | --- | --- |
-| TODO | TODO | TODO | TODO |
-
-## Gaps
-
-- TODO
+Ограничения: node:sqlite experimental в проверенном runtime, синхронные транзакции,
+один локальный процесс. Нет production-hosting, HTTPS/production sessions,
+uploads, guests, живой интеграции Telegram/ai-media-client и diagnostics.
+Диспетчер/адаптеры проверены локально; реальные external sends не выполнялись.
+Текущий SQLite не является выбранной БД для любого будущего продукта автоматически.
+Эксплуатационные детали: ../../../docs/LOCAL_RUN.md.

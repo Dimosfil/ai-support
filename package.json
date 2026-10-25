@@ -1,0 +1,14 @@
+{
+  "name": "@ai-support/core",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=24.14.1 <25" },
+  "exports": { ".": "./src/index.mjs", "./http": "./src/http/app.mjs" },
+  "scripts": {
+    "start": "node src/server.mjs",
+    "dev:setup": "node scripts/setup-local.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "delivery:migrate": "node scripts/migrate-delivery.mjs"
+  }
+}

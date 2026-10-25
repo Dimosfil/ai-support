@@ -1,5 +1,11 @@
 ## Update Intake
 
+- Publish new migration IDs strictly above the previously published version.
+  Preserve released IDs; recover late/backdated delivery with a forward repair.
+  Before publication, run the source release-order check with an explicit prior
+  published Git ref and scoped delivery regressions. Do not equate a compact
+  checkpoint or zero pending count with verified file installation.
+
 - When maintaining this `general-instructions` repository, treat `updates/` as a
   dated intake queue. Review update files newest-first, move accepted reusable
   rules into the main library, and remember accepted updates by committing them.

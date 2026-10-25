@@ -60,3 +60,10 @@ instead of overwriting project-owned content.
 After the core bootstrap, ask whether the project should connect an available
 task-manager plan adapter or use `none`, as required by the full bootstrap
 contract.
+
+# Installation and host activation
+
+Verified GI file installation and migration recording do not establish native
+hook trust or activation. See [Codex hooks](docs/gi-lifecycle-hooks.md) and
+[OpenCode hooks](docs/gi-opencode-hooks.md). Until active/live-tested, use the
+manual Work/Complete context calls; retain explicit runtime gaps.

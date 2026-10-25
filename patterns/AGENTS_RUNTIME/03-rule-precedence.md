@@ -37,3 +37,27 @@
 - If an instruction or skill requires a pause, identify the exact file and
   rule, explain its applicability and what remains blocked. Do not invent an
   approval gate from a general recommendation or hypothetical risk.
+
+## Simplicity And Material Complexity
+
+- Prefer the simplest complete solution; avoid speculative features/abstractions.
+- Before unapproved material complexity (new infrastructure/storage, stack
+  changes, broad restructuring, public-contract expansion, or substantial
+  dependencies), explain need, simpler alternatives, and impact; obtain explicit
+  agreement before implementation. Do not build the expansion to seek approval.
+- Reuse existing agreement. Routine reversible work needs no approval or new
+  paperwork; continue independent steps. Silence is not agreement.
+
+## Whole-Task Completion Gate
+
+- Before claiming completion, check the actual result against every mandatory
+  requirement in the full agreed scope; do not substitute a plan or successful
+  part, or silently reduce the requested outcome.
+- Match claims to current evidence. Verify working scenarios through their actual
+  components; isolated checks, builds, or mocks do not prove integrated behavior.
+- Distinguish implemented, executed, and verified work. Report unfinished or
+  unverified requirements, failed/unavailable checks, blockers, and impact
+  explicitly; never invent results or call required leftovers optional.
+- Continue feasible authorized work. This gate is mandatory even with optional
+  final review off; reuse evidence without new forms or repeated checks. Git
+  finalization checks its own result, without reopening verified product work.

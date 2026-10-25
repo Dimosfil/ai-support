@@ -15,3 +15,14 @@ tools/deploy/ftp.local.json
 tools/deploy/prod.local.json
 tools/deploy/deploy-gateway.local.json
 *.log
+
+# Product runtime data, local credentials and scratch files
+.local/
+data/
+artifacts/
+node_modules/
+coverage/
+dist/
+.codex/.gi-hook-state/
+.opencode/.gi-hook-state/
+.opencode/node_modules/

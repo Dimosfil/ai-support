@@ -1,35 +1,58 @@
-# Pending Tasks
+# Основа поддержки — G0 и серверная часть G1
 
-Use this file for active project-wide plans and multi-step work.
+Цель: встраиваемое ядро и запускаемый локально HTTP/web-адаптер для полного
+цикла обращения без Telegram. Не принимать весь G1 до проверки интеграции продукта.
 
-Keep entries concise and task-relevant. Do not store full diffs, large logs,
-generated outputs, secrets, credentials, or private production data.
+Механизм: HTTP/встраиваемый вызов → SupportService (права, статусы, версии,
+повторы) → SqliteStore (атомарная транзакция тикета, сообщения, аудита,
+notification intent и результата повтора). Identity приходит от серверного адаптера.
+UI использует тот же контракт. Проверка: интеграционные тесты с реальной SQLite
+и HTTP, перезапуск, конфликт версий, изоляция tenant/владельца, приватность заметок.
 
-## Status Markers
+- [x] G0: контракт v1, границы адаптеров, политики отключённых возможностей.
+- [x] Ядро: обращения, сообщения, назначение, статусы, аудит, пагинация.
+- [x] SQLite: атомарность, идемпотентность, durable notification intents.
+- [x] HTTP: проверенная identity, валидация, ограничения запросов, ошибки.
+- [x] Web: пользователь/оператор, черновик, повтор запроса после потери ответа.
+- [x] Тесты и документация, спецификация памяти и стек.
 
-- `[ ]` not started
-- `[~]` in progress
-- `[x]` done
-- `[!]` blocked or needs attention
+Результат: 24 теста прошли; syntax-check src/scripts/tests и git diff --check
+прошли. Проверен штатный CLI-start: health, authenticated session, UTF-8 HTML;
+тестовый процесс остановлен. Dev setup создан в ignored .local/, ключи не
+выведены в чат. Следующий запуск: npm.cmd start.
 
-## Tasks
+Остаток до приёмки G1: визуальная проверка, интеграция product identity,
+безопасные вложения/guest-поток согласно политикам продукта. G2.2 описан ниже;
+остальные части G2–G4 не приняты.
 
-### TODO Task Name
+Решение: Node.js 24.14.1+, ESM, SQLite через node:sqlite, node:test.
+Нет сторонних npm-зависимостей. SQLite API в проверенной версии Node помечен
+experimental; хранение изолировано адаптером. Первое развёртывание — один процесс.
+Гостевой доступ, вложения, внешние уведомления, Telegram и инциденты выключены
+до соответствующих этапов и политик; не показывать их как работающие.
 
-Goal: TODO
+# G2.2: доставка и входные адаптеры (2026-10-25)
 
-Planned changes:
+Согласовано: реализация в ai-support; живое подключение сайта/бота ai-media-client
+следующим шагом. Node/SQLite остаются; внешние отправки и рабочая БД не затрагиваются.
+Ведущая роль: backend/reliability, с проверкой границ доступа и сценариев отказа.
 
-- [ ] TODO
+Механизм: create/change → существующий атомарный notification intent →
+SqliteDeliveryStore (lease, адресаты, попытки) → NotificationDispatcher
+(актуальная проверка получателя) → Telegram/product transport → результат.
+Источник сообщения не определяет права: product authenticate и Telegram binding
+отдают проверенный principal в SupportService. Ни один адаптер не читает соседний repo.
+Проверка: настоящие SQLite/HTTP-компоненты с локальными получателями, перезапуск,
+два worker, backoff, неизвестный результат, отказ канала, отзыв прав, internal notes.
 
-Execution order:
+- [x] Доставка: устойчивая очередь, leases, ограниченные повторы, unknown.
+- [x] Адаптеры: Telegram transport, product transport, входы service/Telegram.
+- [x] Runtime: явное подключение worker, безопасная конфигурация и остановка.
+- [x] Совместимость: отдельная миграция v1→v2 с backup, без автоизменения рабочей БД.
+- [x] Интеграционные тесты, документация, память; npm test: 45/45.
 
-- [ ] TODO
-
-Risks or dependencies:
-
-- [ ] TODO
-
-Verification:
-
-- [ ] TODO
+Проверено: локальные HTTP-приёмники Telegram/product, настоящая SQLite,
+source-level runtime module и отдельный процесс src/server.mjs с delivery=true:
+authenticated HTTP create → commit → background delivery → UTF-8 readback.
+Рабочая БД не мигрировалась; реальные внешние отправки не выполнялись.
+Живое подключение сайта/бота ai-media-client остаётся следующим согласованным шагом.

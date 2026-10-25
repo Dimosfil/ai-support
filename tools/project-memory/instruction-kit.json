@@ -1,7 +1,7 @@
 {
-  "instruction_kit_version": "2026.10.23.1",
+  "instruction_kit_version": "2026.10.25.4",
   "source": "https://github.com/Dimosfil/general-instructions.git",
-  "installed_at": "2026-10-23T08:56:56.7808830+00:00",
+  "installed_at": "2026-10-23T11:56:56.780883+03:00",
   "config_service": {
     "enabled": false
   },
@@ -96,12 +96,22 @@
     "tools/resolve-gi-command.ps1",
     "tools/select-git-commit-languages.ps1",
     "tools/select-project-language.ps1",
-    "tools/select-system-language.ps1"
+    "tools/select-system-language.ps1",
+    ".codex/hooks.json",
+    ".opencode/plugins/gi-lifecycle.js",
+    "tools/invoke-gi-lifecycle-hook.ps1",
+    "docs/gi-lifecycle-hooks.md",
+    "docs/gi-opencode-hooks.md",
+    "patterns/AGENTS_RUNTIME/15-final-review.md",
+    "tools/select-task-verification.ps1",
+    "tools/project-memory/verification-preferences.json",
+    "tools/project-memory/specs/task-completion-review.md"
   ],
   "migration_state": {
     "schema_version": 2,
-    "applied_through": "2026.10.23.1__enforce_evidence_based_automatic_updates",
+    "applied_through": "2026.10.25.4__repair_task_review_delivery",
     "additional_applied_migrations": [],
     "skipped_migrations": []
-  }
+  },
+  "last_update_check_at": "2026-10-25T10:55:08+03:00"
 }

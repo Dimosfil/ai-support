@@ -3,6 +3,12 @@
   "match_policy": "longest_alias_prefix",
   "routes": [
     {
+      "id": "task-verification",
+      "aliases": ["gi проверка", "ги проверка", "gi verification", "gi check"],
+      "contract": "Configure the task-completion result/link/fact review with an On/Off/Cancel chat checklist; persist only an explicit choice, preserve other preferences, and do not run project tests.",
+      "context_files": ["patterns/AGENTS_RUNTIME/15-final-review.md"]
+    },
+    {
       "id": "help",
       "aliases": [
         "gi help",

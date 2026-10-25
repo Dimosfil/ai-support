@@ -35,6 +35,7 @@ script path.
 | `gi project language`, `gi проект язык` | Configure project working-environment languages. |
 | `gi commit language`, `gi коммит язык` | Configure commit-message languages. |
 | `gi system language`, `gi систем язык` | Configure agent response languages. |
+| `gi проверка`, `ги проверка`, `gi verification`, `gi check` | Choose On/Off/Cancel for result, link, and fact review after task execution. |
 | `gi sql`, `gi sqlite`, `gi vector` | Inspect structured or semantic project-memory readiness. |
 | `gi info`, `ги инфо` | Find or build project purpose, visible functionality, workflows, and stack overview. |
 | `gi stack`, `ги стек` | Find or build the verified technology-stack inventory. |

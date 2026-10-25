@@ -296,6 +296,9 @@ if (-not $pending) {
 }
 
 Write-Host "Pending instruction migrations: $($pending.Count)"
+Write-Host "Migration applicability: verify installation separately from host activation; unavailable runtime checks do not block installed migrations."
+Write-Host "Read accepted applicability contract: $(Join-Path $migrationsPath 'README.md')"
+Write-Host "Codex trust/CLI/Desktop checks are Codex-only; OpenCode plugin/response-loop checks are OpenCode-only. Report unverified runtime status separately."
 $pending | ForEach-Object {
     $migrationId = [System.IO.Path]::GetFileNameWithoutExtension($_.Name)
     Write-Host "- $migrationId"
@@ -315,7 +318,7 @@ if (-not $RecordApplied) {
     if ($autoApply) {
         Write-Host "Required agent action: apply pending accepted migrations now, before task-specific work; no additional confirmation is required."
         Write-Host "Migration source: $migrationsPath"
-        Write-Host "Read the listed migration files in order, merge and verify their file changes, then run with -RecordApplied."
+        Write-Host "Read the listed migration files in order, merge and verify the whole batch including later host adapters, then run with -RecordApplied."
         Write-Host "An availability notice is not completion. Report a concrete blocker if application cannot proceed; never infer disabled policy from helper behavior."
     } else {
         Write-Host "Automatic application skipped by the explicit metadata choice; leave migration state unchanged."

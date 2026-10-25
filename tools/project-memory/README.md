@@ -2,6 +2,17 @@
 
 This folder stores implementation-driving project knowledge for AI agents.
 
+Current project contracts:
+
+- [Task completion review](specs/task-completion-review.md) — final-result review;
+  `verification-preferences.json` stores `task_completion_review.enabled`
+  (default On). Preserve existing choices and unrelated fields during updates.
+- [Support core v1](specs/support-core-v1.md) — права, транзакции, повторы и границы реализации.
+- [Delivery G2.2](specs/delivery-g22.md) — очередь/leases/попытки, routing и два входа.
+- [Connected projects](specs/integration-contracts/connected-projects.md) — происхождение подхода и граница ai-media-client.
+- [Technology stack](specs/technology-stack.md) — стек, команды и проверенные ограничения.
+- [Active task plan](pending-tasks.md) — работа над основой G0/G1 и G2.2.
+
 Use it for verified behavior, rules, and implementation contracts that should
 survive chat resets:
 

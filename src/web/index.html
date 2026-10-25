@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Поддержка</title>
+  <link rel="stylesheet" href="/style.css">
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <header><div><span class="eyebrow">ЦЕНТР ПОДДЕРЖКИ</span><h1>На связи</h1></div><div><span id="identity"></span> <button id="logout" hidden>Выйти</button></div></header>
+  <main>
+    <p id="feedback" role="status" aria-live="polite"></p>
+    <section id="login-panel" class="card narrow">
+      <h2>Вход в локальный стенд</h2>
+      <p>Введите ключ пользователя или оператора из локального файла доступа.</p>
+      <form id="login"><label>Ключ доступа<input id="token" type="password" required autocomplete="off" spellcheck="false"></label><button>Войти</button></form>
+      <p class="muted">Это адаптер для разработки. При подключении продукта вход обеспечивает его серверная сессия.</p>
+    </section>
+    <div id="workspace" hidden>
+      <div class="workspace">
+        <aside>
+          <section id="create-panel" class="card">
+            <h2>Новое обращение</h2>
+            <form id="create"><label>Тема<input id="subject" required maxlength="200"></label><label>Что случилось?<textarea id="description" required rows="5" maxlength="10000"></textarea></label><button>Отправить обращение</button></form>
+            <p class="muted">Черновик сохраняется в этой вкладке. Вложения пока недоступны.</p>
+          </section>
+          <section class="card"><div class="row"><h2 id="list-title">Мои обращения</h2><button id="refresh" class="secondary">Обновить</button></div><div id="tickets"></div><button id="more-tickets" hidden class="secondary">Ещё обращения</button></section>
+        </aside>
+        <section class="card conversation">
+          <div id="empty"><h2>Переписка по делу</h2><p>Выберите обращение, чтобы посмотреть сообщения и продолжить разговор.</p></div>
+          <div id="detail" hidden>
+            <span id="ticket-number" class="eyebrow"></span><h2 id="ticket-subject"></h2>
+            <p id="ticket-state" class="muted"></p>
+            <div id="operator-actions" hidden>
+              <div class="row"><button id="assign" class="secondary">Взять себе</button><button id="unassign" class="secondary">Снять назначение</button></div>
+              <form id="status-form" class="row"><label>Статус<select id="status"></select></label><button class="secondary">Изменить</button></form>
+            </div>
+            <button id="more-messages" hidden class="secondary">Предыдущие сообщения</button>
+            <div id="messages" aria-label="История сообщений"></div>
+            <form id="reply"><label>Сообщение<textarea id="reply-body" rows="4" required maxlength="10000"></textarea></label><label id="note-control" hidden><input id="internal" type="checkbox"> Внутренняя заметка — видна только операторам</label><button>Сохранить сообщение</button></form>
+            <p class="muted">Сообщения сохраняются в обращении. Внешние уведомления и Telegram ещё не подключены.</p>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+  <footer>Не отправляйте пароли, ключи доступа или платёжные реквизиты.</footer>
+</body>
+</html>

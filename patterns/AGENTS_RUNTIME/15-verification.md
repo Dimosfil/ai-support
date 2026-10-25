@@ -1,5 +1,7 @@
 ## Verification
 
+Apply the whole-task gate in `03-rule-precedence.md`.
+
 Choose checks by changed behavior, affected layers, risk, and the documented
 project contract. Complete required checks, including any explicitly requested
 full test or release workflow. Use the smallest sufficient set for other tasks.
